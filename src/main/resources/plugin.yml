@@ -1,0 +1,12 @@
+name: Waypoint
+version: '${project.version}'
+main: site.urandom.waypoint.Waypoint
+api-version: 1.17
+prefix: waypoint
+authors: [ fanghr ]
+
+commands:
+  w:
+    description: waypoint
+    usage: /w (set|tp/remove)
+    permission: site.urandom.waypoint.command
