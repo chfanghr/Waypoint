@@ -113,10 +113,10 @@ public class WCommandListener extends SubcommandRulesBaseListener {
         });
     }
 
-    private void doTp(String name){
+    private void doTp(String name) {
         NamespacedKey key = new NamespacedKey(plugin, name);
 
-        if(!dataContainer.has(key, WorldAndCoordinateDataType.getInstance())){
+        if (!dataContainer.has(key, WorldAndCoordinateDataType.getInstance())) {
             player.sendMessage(ChatColor.RED + "No such waypoint named " + name);
             return;
         }
@@ -125,6 +125,7 @@ public class WCommandListener extends SubcommandRulesBaseListener {
                 Objects.requireNonNull(dataContainer.get(key, WorldAndCoordinateDataType.getInstance()))
                         .toLocation();
 
+        player.sendMessage(ChatColor.GREEN + "Teleporting u to " + name);
         player.teleport(location);
     }
 
