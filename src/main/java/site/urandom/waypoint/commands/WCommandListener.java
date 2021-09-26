@@ -171,7 +171,7 @@ public class WCommandListener extends SubcommandRulesBaseListener {
         allKeys.stream()
                 .filter(k->k.getNamespace().equals(namespaceName))
                 .filter(k->!k.getKey().equals(PlayerDeathEventListener.locationKey))
-                .forEach(k -> player.sendMessage(ChatColor.GREEN+"\t"+k.getKey()));
+                .forEach(k -> player.sendMessage(ChatColor.GREEN+"->"+k.getKey()));
     }
 
     @Override
