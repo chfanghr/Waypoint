@@ -52,25 +52,13 @@ public class SubcommandRulesBaseListener implements SubcommandRulesListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTpNameOnly(SubcommandRulesParser.TpNameOnlyContext ctx) { }
+	@Override public void enterTp(SubcommandRulesParser.TpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTpNameOnly(SubcommandRulesParser.TpNameOnlyContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTpShortcut(SubcommandRulesParser.TpShortcutContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTpShortcut(SubcommandRulesParser.TpShortcutContext ctx) { }
+	@Override public void exitTp(SubcommandRulesParser.TpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

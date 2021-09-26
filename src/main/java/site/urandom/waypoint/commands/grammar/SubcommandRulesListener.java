@@ -44,29 +44,15 @@ public interface SubcommandRulesListener extends ParseTreeListener {
 	 */
 	void exitSetWithCoordWorld(SubcommandRulesParser.SetWithCoordWorldContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code tpNameOnly}
-	 * labeled alternative in {@link SubcommandRulesParser#tp}.
+	 * Enter a parse tree produced by {@link SubcommandRulesParser#tp}.
 	 * @param ctx the parse tree
 	 */
-	void enterTpNameOnly(SubcommandRulesParser.TpNameOnlyContext ctx);
+	void enterTp(SubcommandRulesParser.TpContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code tpNameOnly}
-	 * labeled alternative in {@link SubcommandRulesParser#tp}.
+	 * Exit a parse tree produced by {@link SubcommandRulesParser#tp}.
 	 * @param ctx the parse tree
 	 */
-	void exitTpNameOnly(SubcommandRulesParser.TpNameOnlyContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code tpShortcut}
-	 * labeled alternative in {@link SubcommandRulesParser#tp}.
-	 * @param ctx the parse tree
-	 */
-	void enterTpShortcut(SubcommandRulesParser.TpShortcutContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code tpShortcut}
-	 * labeled alternative in {@link SubcommandRulesParser#tp}.
-	 * @param ctx the parse tree
-	 */
-	void exitTpShortcut(SubcommandRulesParser.TpShortcutContext ctx);
+	void exitTp(SubcommandRulesParser.TpContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SubcommandRulesParser#remove}.
 	 * @param ctx the parse tree

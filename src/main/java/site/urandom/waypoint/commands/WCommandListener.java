@@ -130,13 +130,7 @@ public class WCommandListener extends SubcommandRulesBaseListener {
     }
 
     @Override
-    public void exitTpNameOnly(SubcommandRulesParser.TpNameOnlyContext ctx) {
-        doTp(ctx.name.getText());
-
-    }
-
-    @Override
-    public void exitTpShortcut(SubcommandRulesParser.TpShortcutContext ctx) {
+    public void exitTp(SubcommandRulesParser.TpContext ctx) {
         doTp(ctx.name.getText());
     }
 
