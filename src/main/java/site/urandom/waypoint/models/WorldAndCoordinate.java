@@ -34,4 +34,9 @@ public class WorldAndCoordinate implements Serializable {
         World worldObj = Objects.requireNonNull(Bukkit.getWorld(world));
         return new Location(worldObj, x, y, z);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%f %f %f %s", x, y, z, world);
+    }
 }

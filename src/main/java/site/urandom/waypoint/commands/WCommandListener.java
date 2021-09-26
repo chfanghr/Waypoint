@@ -167,11 +167,10 @@ public class WCommandListener extends SubcommandRulesBaseListener {
     @Override
     public void exitList(SubcommandRulesParser.ListContext ctx) {
         Set<NamespacedKey> allKeys = dataContainer.getKeys();
-        String namespaceName = plugin.getName().toLowerCase(Locale.ROOT);
         allKeys.stream()
-                .filter(k->k.getNamespace().equals(namespaceName))
-                .filter(k->!k.getKey().equals(PlayerDeathEventListener.locationKey))
-                .forEach(k -> player.sendMessage(ChatColor.GREEN+"->"+k.getKey()));
+//                .filter(k->!k.getKey().equals(PlayerDeathEventListener.locationKey.toLowerCase(Locale.ROOT)))
+                .filter(k->dataContainer.has(k, WorldAndCoordinateDataType.getInstance()))
+                .forEach(k -> player.sendMessage(ChatColor.GREEN+k.getKey()+" -> "+ Objects.requireNonNull(dataContainer.get(k, WorldAndCoordinateDataType.getInstance()))));
     }
 
     @Override
