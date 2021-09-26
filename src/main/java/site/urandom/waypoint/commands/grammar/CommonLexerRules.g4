@@ -6,3 +6,4 @@ DOUBLE : '-'? INT ('.' INT)?;
 fragment INT: '0'|[1-9][0-9]*;
 
 WS: [ \t\r\n]+ -> skip;
+

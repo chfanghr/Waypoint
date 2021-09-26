@@ -2,14 +2,19 @@ grammar SubcommandRules;
 
 import CommonLexerRules;
 
-set : 'set' name=ID #setNameOnly
-    | 'set' name=ID x=DOUBLE y=DOUBLE z=DOUBLE #setWithCoord
-    | 'set' name=ID x=DOUBLE y=DOUBLE z=DOUBLE world=ID #setWithCoordWorld;
+set : SET name=ID #setNameOnly
+    | SET name=ID x=DOUBLE y=DOUBLE z=DOUBLE #setWithCoord
+    | SET name=ID x=DOUBLE y=DOUBLE z=DOUBLE world=ID #setWithCoordWorld;
 
-tp : 'tp' name=ID;
+tp : TP name=ID # tpNameOnly
+    | name=ID # tpShortcut;
 
-remove : 'remove' name=ID;
+remove : REMOVE name=ID;
 
 subcommand : set
            | tp
            | remove;
+
+REMOVE: 'remove'|'rm';
+TP: 'tp';
+SET: 'set';

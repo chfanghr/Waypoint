@@ -17,7 +17,7 @@ public class SubcommandRulesParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, ID=4, DOUBLE=5, WS=6;
+		REMOVE=1, TP=2, SET=3, ID=4, DOUBLE=5, WS=6;
 	public static final int
 		RULE_set = 0, RULE_tp = 1, RULE_remove = 2, RULE_subcommand = 3;
 	private static String[] makeRuleNames() {
@@ -29,13 +29,13 @@ public class SubcommandRulesParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'set'", "'tp'", "'remove'"
+			null, null, "'tp'", "'set'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, "ID", "DOUBLE", "WS"
+			null, "REMOVE", "TP", "SET", "ID", "DOUBLE", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -105,6 +105,7 @@ public class SubcommandRulesParser extends Parser {
 		public Token x;
 		public Token y;
 		public Token z;
+		public TerminalNode SET() { return getToken(SubcommandRulesParser.SET, 0); }
 		public TerminalNode ID() { return getToken(SubcommandRulesParser.ID, 0); }
 		public List<TerminalNode> DOUBLE() { return getTokens(SubcommandRulesParser.DOUBLE); }
 		public TerminalNode DOUBLE(int i) {
@@ -126,6 +127,7 @@ public class SubcommandRulesParser extends Parser {
 		public Token y;
 		public Token z;
 		public Token world;
+		public TerminalNode SET() { return getToken(SubcommandRulesParser.SET, 0); }
 		public List<TerminalNode> ID() { return getTokens(SubcommandRulesParser.ID); }
 		public TerminalNode ID(int i) {
 			return getToken(SubcommandRulesParser.ID, i);
@@ -146,6 +148,7 @@ public class SubcommandRulesParser extends Parser {
 	}
 	public static class SetNameOnlyContext extends SetContext {
 		public Token name;
+		public TerminalNode SET() { return getToken(SubcommandRulesParser.SET, 0); }
 		public TerminalNode ID() { return getToken(SubcommandRulesParser.ID, 0); }
 		public SetNameOnlyContext(SetContext ctx) { copyFrom(ctx); }
 		@Override
@@ -170,7 +173,7 @@ public class SubcommandRulesParser extends Parser {
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(8);
-				match(T__0);
+				match(SET);
 				setState(9);
 				((SetNameOnlyContext)_localctx).name = match(ID);
 				}
@@ -180,7 +183,7 @@ public class SubcommandRulesParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(10);
-				match(T__0);
+				match(SET);
 				setState(11);
 				((SetWithCoordContext)_localctx).name = match(ID);
 				setState(12);
@@ -196,7 +199,7 @@ public class SubcommandRulesParser extends Parser {
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(15);
-				match(T__0);
+				match(SET);
 				setState(16);
 				((SetWithCoordWorldContext)_localctx).name = match(ID);
 				setState(17);
@@ -223,19 +226,41 @@ public class SubcommandRulesParser extends Parser {
 	}
 
 	public static class TpContext extends ParserRuleContext {
-		public Token name;
-		public TerminalNode ID() { return getToken(SubcommandRulesParser.ID, 0); }
 		public TpContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_tp; }
+	 
+		public TpContext() { }
+		public void copyFrom(TpContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class TpNameOnlyContext extends TpContext {
+		public Token name;
+		public TerminalNode TP() { return getToken(SubcommandRulesParser.TP, 0); }
+		public TerminalNode ID() { return getToken(SubcommandRulesParser.ID, 0); }
+		public TpNameOnlyContext(TpContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SubcommandRulesListener ) ((SubcommandRulesListener)listener).enterTp(this);
+			if ( listener instanceof SubcommandRulesListener ) ((SubcommandRulesListener)listener).enterTpNameOnly(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SubcommandRulesListener ) ((SubcommandRulesListener)listener).exitTp(this);
+			if ( listener instanceof SubcommandRulesListener ) ((SubcommandRulesListener)listener).exitTpNameOnly(this);
+		}
+	}
+	public static class TpShortcutContext extends TpContext {
+		public Token name;
+		public TerminalNode ID() { return getToken(SubcommandRulesParser.ID, 0); }
+		public TpShortcutContext(TpContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SubcommandRulesListener ) ((SubcommandRulesListener)listener).enterTpShortcut(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SubcommandRulesListener ) ((SubcommandRulesListener)listener).exitTpShortcut(this);
 		}
 	}
 
@@ -243,12 +268,29 @@ public class SubcommandRulesParser extends Parser {
 		TpContext _localctx = new TpContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_tp);
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(23);
-			match(T__1);
-			setState(24);
-			((TpContext)_localctx).name = match(ID);
+			setState(26);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case TP:
+				_localctx = new TpNameOnlyContext(_localctx);
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(23);
+				match(TP);
+				setState(24);
+				((TpNameOnlyContext)_localctx).name = match(ID);
+				}
+				break;
+			case ID:
+				_localctx = new TpShortcutContext(_localctx);
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(25);
+				((TpShortcutContext)_localctx).name = match(ID);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -264,6 +306,7 @@ public class SubcommandRulesParser extends Parser {
 
 	public static class RemoveContext extends ParserRuleContext {
 		public Token name;
+		public TerminalNode REMOVE() { return getToken(SubcommandRulesParser.REMOVE, 0); }
 		public TerminalNode ID() { return getToken(SubcommandRulesParser.ID, 0); }
 		public RemoveContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -285,9 +328,9 @@ public class SubcommandRulesParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(26);
-			match(T__2);
-			setState(27);
+			setState(28);
+			match(REMOVE);
+			setState(29);
 			((RemoveContext)_localctx).name = match(ID);
 			}
 		}
@@ -330,27 +373,28 @@ public class SubcommandRulesParser extends Parser {
 		SubcommandContext _localctx = new SubcommandContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_subcommand);
 		try {
-			setState(32);
+			setState(34);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case T__0:
+			case SET:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(29);
+				setState(31);
 				set();
 				}
 				break;
-			case T__1:
+			case TP:
+			case ID:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(30);
+				setState(32);
 				tp();
 				}
 				break;
-			case T__2:
+			case REMOVE:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(31);
+				setState(33);
 				remove();
 				}
 				break;
@@ -370,16 +414,17 @@ public class SubcommandRulesParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\b%\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\b\'\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2"+
-		"\5\2\30\n\2\3\3\3\3\3\3\3\4\3\4\3\4\3\5\3\5\3\5\5\5#\n\5\3\5\2\2\6\2\4"+
-		"\6\b\2\2\2$\2\27\3\2\2\2\4\31\3\2\2\2\6\34\3\2\2\2\b\"\3\2\2\2\n\13\7"+
-		"\3\2\2\13\30\7\6\2\2\f\r\7\3\2\2\r\16\7\6\2\2\16\17\7\7\2\2\17\20\7\7"+
-		"\2\2\20\30\7\7\2\2\21\22\7\3\2\2\22\23\7\6\2\2\23\24\7\7\2\2\24\25\7\7"+
-		"\2\2\25\26\7\7\2\2\26\30\7\6\2\2\27\n\3\2\2\2\27\f\3\2\2\2\27\21\3\2\2"+
-		"\2\30\3\3\2\2\2\31\32\7\4\2\2\32\33\7\6\2\2\33\5\3\2\2\2\34\35\7\5\2\2"+
-		"\35\36\7\6\2\2\36\7\3\2\2\2\37#\5\2\2\2 #\5\4\3\2!#\5\6\4\2\"\37\3\2\2"+
-		"\2\" \3\2\2\2\"!\3\2\2\2#\t\3\2\2\2\4\27\"";
+		"\5\2\30\n\2\3\3\3\3\3\3\5\3\35\n\3\3\4\3\4\3\4\3\5\3\5\3\5\5\5%\n\5\3"+
+		"\5\2\2\6\2\4\6\b\2\2\2\'\2\27\3\2\2\2\4\34\3\2\2\2\6\36\3\2\2\2\b$\3\2"+
+		"\2\2\n\13\7\5\2\2\13\30\7\6\2\2\f\r\7\5\2\2\r\16\7\6\2\2\16\17\7\7\2\2"+
+		"\17\20\7\7\2\2\20\30\7\7\2\2\21\22\7\5\2\2\22\23\7\6\2\2\23\24\7\7\2\2"+
+		"\24\25\7\7\2\2\25\26\7\7\2\2\26\30\7\6\2\2\27\n\3\2\2\2\27\f\3\2\2\2\27"+
+		"\21\3\2\2\2\30\3\3\2\2\2\31\32\7\4\2\2\32\35\7\6\2\2\33\35\7\6\2\2\34"+
+		"\31\3\2\2\2\34\33\3\2\2\2\35\5\3\2\2\2\36\37\7\3\2\2\37 \7\6\2\2 \7\3"+
+		"\2\2\2!%\5\2\2\2\"%\5\4\3\2#%\5\6\4\2$!\3\2\2\2$\"\3\2\2\2$#\3\2\2\2%"+
+		"\t\3\2\2\2\5\27\34$";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

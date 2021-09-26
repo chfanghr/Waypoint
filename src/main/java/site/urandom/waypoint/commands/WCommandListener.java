@@ -12,6 +12,8 @@ import site.urandom.waypoint.commands.grammar.SubcommandRulesParser;
 import site.urandom.waypoint.models.WorldAndCoordinate;
 import site.urandom.waypoint.models.WorldAndCoordinateDataType;
 
+import java.util.Objects;
+
 public class WCommandListener extends SubcommandRulesBaseListener {
     private Waypoint plugin;
     private Player player;
@@ -111,18 +113,30 @@ public class WCommandListener extends SubcommandRulesBaseListener {
         });
     }
 
-    @Override
-    public void exitTp(SubcommandRulesParser.TpContext ctx) {
-        String name = ctx.name.getText();
+    private void doTp(String name){
         NamespacedKey key = new NamespacedKey(plugin, name);
 
-        Location location = dataContainer.get(key, WorldAndCoordinateDataType.getInstance()).toLocation();
-        if (location == null) {
+        if(!dataContainer.has(key, WorldAndCoordinateDataType.getInstance())){
             player.sendMessage(ChatColor.RED + "No such waypoint named " + name);
             return;
         }
 
+        Location location =
+                Objects.requireNonNull(dataContainer.get(key, WorldAndCoordinateDataType.getInstance()))
+                        .toLocation();
+
         player.teleport(location);
+    }
+
+    @Override
+    public void exitTpNameOnly(SubcommandRulesParser.TpNameOnlyContext ctx) {
+        doTp(ctx.name.getText());
+
+    }
+
+    @Override
+    public void exitTpShortcut(SubcommandRulesParser.TpShortcutContext ctx) {
+        doTp(ctx.name.getText());
     }
 
     @Override
