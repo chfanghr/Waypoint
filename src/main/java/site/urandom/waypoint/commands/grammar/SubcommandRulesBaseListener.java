@@ -88,6 +88,18 @@ public class SubcommandRulesBaseListener implements SubcommandRulesListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterList(SubcommandRulesParser.ListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitList(SubcommandRulesParser.ListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSubcommand(SubcommandRulesParser.SubcommandContext ctx) { }
 	/**
 	 * {@inheritDoc}

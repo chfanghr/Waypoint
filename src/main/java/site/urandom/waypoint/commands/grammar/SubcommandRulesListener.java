@@ -78,6 +78,16 @@ public interface SubcommandRulesListener extends ParseTreeListener {
 	 */
 	void exitRemove(SubcommandRulesParser.RemoveContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SubcommandRulesParser#list}.
+	 * @param ctx the parse tree
+	 */
+	void enterList(SubcommandRulesParser.ListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SubcommandRulesParser#list}.
+	 * @param ctx the parse tree
+	 */
+	void exitList(SubcommandRulesParser.ListContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SubcommandRulesParser#subcommand}.
 	 * @param ctx the parse tree
 	 */

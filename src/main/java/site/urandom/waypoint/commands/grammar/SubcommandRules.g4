@@ -11,10 +11,14 @@ tp : TP name=ID # tpNameOnly
 
 remove : REMOVE name=ID;
 
+list: LIST;
+
 subcommand : set
            | tp
-           | remove;
+           | remove
+           | list;
 
 REMOVE: 'remove'|'rm';
 TP: 'tp';
 SET: 'set';
+LIST: 'list'|'ls';

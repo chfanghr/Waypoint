@@ -1,8 +1,9 @@
 REMOVE=1
 TP=2
 SET=3
-ID=4
-DOUBLE=5
-WS=6
+LIST=4
+ID=5
+DOUBLE=6
+WS=7
 'tp'=2
 'set'=3

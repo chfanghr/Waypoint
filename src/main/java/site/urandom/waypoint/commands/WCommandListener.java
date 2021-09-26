@@ -12,7 +12,7 @@ import site.urandom.waypoint.commands.grammar.SubcommandRulesParser;
 import site.urandom.waypoint.models.WorldAndCoordinate;
 import site.urandom.waypoint.models.WorldAndCoordinateDataType;
 
-import java.util.Objects;
+import java.util.*;
 
 public class WCommandListener extends SubcommandRulesBaseListener {
     private Waypoint plugin;
@@ -154,6 +154,14 @@ public class WCommandListener extends SubcommandRulesBaseListener {
     public void exitSubcommand(SubcommandRulesParser.SubcommandContext ctx) {
         if (state == State.UNKNOWN)
             state = State.OK;
+    }
+
+    @Override
+    public void exitList(SubcommandRulesParser.ListContext ctx) {
+        Set<NamespacedKey> allKeys = dataContainer.getKeys();
+        String namespaceName = plugin.getName().toLowerCase(Locale.ROOT);
+        allKeys.stream().filter(k->k.getNamespace().equals(namespaceName))
+                .forEach(k -> player.sendMessage(ChatColor.GREEN+"\t"+k.getKey()));
     }
 
     @Override
