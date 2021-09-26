@@ -29,7 +29,7 @@ public class WCommandListener extends SubcommandRulesBaseListener {
         OK,
         SYNTAX_ERROR,
         DUPLICATED_NAME,
-        NameNotFound,
+        NAME_NOT_FOUND,
         UNKNOWN
     }
 
@@ -117,6 +117,7 @@ public class WCommandListener extends SubcommandRulesBaseListener {
         NamespacedKey key = new NamespacedKey(plugin, name);
 
         if (!dataContainer.has(key, WorldAndCoordinateDataType.getInstance())) {
+            state = State.NAME_NOT_FOUND;
             player.sendMessage(ChatColor.RED + "No such waypoint named " + name);
             return;
         }
