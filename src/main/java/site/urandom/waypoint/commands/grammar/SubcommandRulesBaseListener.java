@@ -88,6 +88,18 @@ public class SubcommandRulesBaseListener implements SubcommandRulesListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterTpToLastDeath(SubcommandRulesParser.TpToLastDeathContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTpToLastDeath(SubcommandRulesParser.TpToLastDeathContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSubcommand(SubcommandRulesParser.SubcommandContext ctx) { }
 	/**
 	 * {@inheritDoc}

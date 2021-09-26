@@ -12,12 +12,16 @@ remove : REMOVE name=ID;
 
 list : LIST;
 
+tpToLastDeath: LASTDEATH;
+
 subcommand : set
            | tp
            | remove
-           | list;
+           | list
+           | tpToLastDeath;
 
 REMOVE: 'remove'|'rm';
 TP: 'tp';
 SET: 'set';
 LIST: 'list'|'ls';
+LASTDEATH: 'last_death'|'ld';

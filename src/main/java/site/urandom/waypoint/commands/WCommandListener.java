@@ -9,6 +9,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import site.urandom.waypoint.Waypoint;
 import site.urandom.waypoint.commands.grammar.SubcommandRulesBaseListener;
 import site.urandom.waypoint.commands.grammar.SubcommandRulesParser;
+import site.urandom.waypoint.events.PlayerDeathEventListener;
 import site.urandom.waypoint.models.WorldAndCoordinate;
 import site.urandom.waypoint.models.WorldAndCoordinateDataType;
 
@@ -18,18 +19,21 @@ public class WCommandListener extends SubcommandRulesBaseListener {
     private final Waypoint plugin;
     private final Player player;
     private final PersistentDataContainer dataContainer;
+    private final NamespacedKey lastDeathKey;
 
     public WCommandListener(Waypoint plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
         this.dataContainer = player.getPersistentDataContainer();
+        this.lastDeathKey = new NamespacedKey(plugin, PlayerDeathEventListener.locationKey);
     }
 
     public enum State {
         OK,
         SYNTAX_ERROR,
+        INVALID_NAME,
         DUPLICATED_NAME,
-        NAME_NOT_FOUND,
+        LOCATION_NOT_FOUND,
         UNKNOWN
     }
 
@@ -47,6 +51,11 @@ public class WCommandListener extends SubcommandRulesBaseListener {
 
     public void setWaypoint(WaypointProvider provider) {
         String name = provider.getName();
+        if(name.equals(PlayerDeathEventListener.locationKey)){
+            player.sendMessage(ChatColor.RED+"This is a reserved name");
+            state = State.INVALID_NAME;
+            return;
+        }
         NamespacedKey key = new NamespacedKey(plugin, name);
         if (dataContainer.has(key, WorldAndCoordinateDataType.getInstance())) {
             player.sendMessage(ChatColor.RED + "There is already a waypoint named " + name);
@@ -116,9 +125,13 @@ public class WCommandListener extends SubcommandRulesBaseListener {
     private void doTp(String name) {
         NamespacedKey key = new NamespacedKey(plugin, name);
 
+        doTp(key);
+    }
+
+    private void doTp(NamespacedKey key){
         if (!dataContainer.has(key, WorldAndCoordinateDataType.getInstance())) {
-            state = State.NAME_NOT_FOUND;
-            player.sendMessage(ChatColor.RED + "No such waypoint named " + name);
+            state = State.LOCATION_NOT_FOUND;
+            player.sendMessage(ChatColor.RED + "No such waypoint named " + key.getKey());
             return;
         }
 
@@ -126,7 +139,7 @@ public class WCommandListener extends SubcommandRulesBaseListener {
                 Objects.requireNonNull(dataContainer.get(key, WorldAndCoordinateDataType.getInstance()))
                         .toLocation();
 
-        player.sendMessage(ChatColor.GREEN + "Teleporting u to " + name);
+        player.sendMessage(ChatColor.GREEN + "Teleporting u to " + key.getKey());
         player.teleport(location);
     }
 
@@ -155,8 +168,21 @@ public class WCommandListener extends SubcommandRulesBaseListener {
     public void exitList(SubcommandRulesParser.ListContext ctx) {
         Set<NamespacedKey> allKeys = dataContainer.getKeys();
         String namespaceName = plugin.getName().toLowerCase(Locale.ROOT);
-        allKeys.stream().filter(k->k.getNamespace().equals(namespaceName))
+        allKeys.stream()
+                .filter(k->k.getNamespace().equals(namespaceName))
+                .filter(k->!k.getKey().equals(PlayerDeathEventListener.locationKey))
                 .forEach(k -> player.sendMessage(ChatColor.GREEN+"\t"+k.getKey()));
+    }
+
+    @Override
+    public void exitTpToLastDeath(SubcommandRulesParser.TpToLastDeathContext ctx) {
+        if(!dataContainer.has(lastDeathKey, WorldAndCoordinateDataType.getInstance())){
+            player.sendMessage(ChatColor.RED+"Your last death location hasnt been recorded!");
+            state = State.LOCATION_NOT_FOUND;
+            return;
+        }
+
+        doTp(lastDeathKey);
     }
 
     @Override

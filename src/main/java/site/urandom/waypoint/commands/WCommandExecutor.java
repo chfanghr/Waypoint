@@ -15,7 +15,7 @@ import site.urandom.waypoint.commands.grammar.SubcommandRulesLexer;
 import site.urandom.waypoint.commands.grammar.SubcommandRulesParser;
 
 public class WCommandExecutor implements CommandExecutor {
-    private Waypoint plugin;
+    private final Waypoint plugin;
 
     public WCommandExecutor(Waypoint plugin) {
         this.plugin = plugin;

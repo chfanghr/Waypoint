@@ -74,6 +74,16 @@ public interface SubcommandRulesListener extends ParseTreeListener {
 	 */
 	void exitList(SubcommandRulesParser.ListContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SubcommandRulesParser#tpToLastDeath}.
+	 * @param ctx the parse tree
+	 */
+	void enterTpToLastDeath(SubcommandRulesParser.TpToLastDeathContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SubcommandRulesParser#tpToLastDeath}.
+	 * @param ctx the parse tree
+	 */
+	void exitTpToLastDeath(SubcommandRulesParser.TpToLastDeathContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SubcommandRulesParser#subcommand}.
 	 * @param ctx the parse tree
 	 */
