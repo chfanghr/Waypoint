@@ -8,5 +8,5 @@ authors: [ fanghr ]
 commands:
   w:
     description: waypoint
-    usage: /w (set|tp/remove)
+    usage: /w set <name> (<x> <y> <z> <world>?)?|tp? <name>|(remove|rm) <name>|(list|ls)|(last_death|ld)
     permission: site.urandom.waypoint.command
