@@ -15,9 +15,9 @@ import site.urandom.waypoint.models.WorldAndCoordinateDataType;
 import java.util.*;
 
 public class WCommandListener extends SubcommandRulesBaseListener {
-    private Waypoint plugin;
-    private Player player;
-    private PersistentDataContainer dataContainer;
+    private final Waypoint plugin;
+    private final Player player;
+    private final PersistentDataContainer dataContainer;
 
     public WCommandListener(Waypoint plugin, Player player) {
         this.plugin = plugin;
