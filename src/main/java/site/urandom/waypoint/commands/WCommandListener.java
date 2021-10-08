@@ -20,12 +20,15 @@ public class WCommandListener extends SubcommandRulesBaseListener {
     private final Player player;
     private final PersistentDataContainer dataContainer;
     private final NamespacedKey lastDeathKey;
+    private final String lastLocationKey = "last";
+    private final NamespacedKey lastKey;
 
     public WCommandListener(Waypoint plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
         this.dataContainer = player.getPersistentDataContainer();
         this.lastDeathKey = new NamespacedKey(plugin, PlayerDeathEventListener.locationKey);
+        this.lastKey = new NamespacedKey(plugin, lastLocationKey);
     }
 
     public enum State {
@@ -51,7 +54,7 @@ public class WCommandListener extends SubcommandRulesBaseListener {
 
     public void setWaypoint(WaypointProvider provider) {
         String name = provider.getName();
-        if(name.equals(PlayerDeathEventListener.locationKey)){
+        if(name.equals(PlayerDeathEventListener.locationKey) || name.equals(lastLocationKey)){
             player.sendMessage(ChatColor.RED+"This is a reserved name");
             state = State.INVALID_NAME;
             return;
@@ -135,6 +138,12 @@ public class WCommandListener extends SubcommandRulesBaseListener {
             return;
         }
 
+        dataContainer.remove(lastKey);
+
+        WorldAndCoordinate currentLocation = new WorldAndCoordinate(player);
+
+        dataContainer.set(lastKey, WorldAndCoordinateDataType.getInstance(), currentLocation);
+
         Location location =
                 Objects.requireNonNull(dataContainer.get(key, WorldAndCoordinateDataType.getInstance()))
                         .toLocation();
@@ -182,6 +191,17 @@ public class WCommandListener extends SubcommandRulesBaseListener {
         }
 
         doTp(lastDeathKey);
+    }
+
+    @Override
+    public void exitLast(SubcommandRulesParser.LastContext ctx) {
+        if(!dataContainer.has(lastKey, WorldAndCoordinateDataType.getInstance())){
+            player.sendMessage(ChatColor.RED+"Your last location hasnt been recorded!");
+            state = State.LOCATION_NOT_FOUND;
+            return;
+        }
+
+        doTp(lastKey);
     }
 
     @Override
