@@ -14,14 +14,18 @@ list : LIST;
 
 tpToLastDeath: LASTDEATH;
 
+last: LAST;
+
 subcommand : set
            | tp
            | remove
            | list
-           | tpToLastDeath;
+           | tpToLastDeath
+           | last;
 
 REMOVE: 'remove'|'rm';
 TP: 'tp';
 SET: 'set';
 LIST: 'list'|'ls';
 LASTDEATH: 'last_death'|'ld';
+LAST: 'last' | 'l';
