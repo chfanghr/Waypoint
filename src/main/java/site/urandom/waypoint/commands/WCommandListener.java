@@ -138,11 +138,7 @@ public class WCommandListener extends SubcommandRulesBaseListener {
             return;
         }
 
-        dataContainer.remove(lastKey);
-
         WorldAndCoordinate currentLocation = new WorldAndCoordinate(player);
-
-        dataContainer.set(lastKey, WorldAndCoordinateDataType.getInstance(), currentLocation);
 
         Location location =
                 Objects.requireNonNull(dataContainer.get(key, WorldAndCoordinateDataType.getInstance()))
@@ -150,6 +146,10 @@ public class WCommandListener extends SubcommandRulesBaseListener {
 
         player.sendMessage(ChatColor.GREEN + "Teleporting u to " + key.getKey());
         player.teleport(location);
+
+        dataContainer.remove(lastKey);
+
+        dataContainer.set(lastKey, WorldAndCoordinateDataType.getInstance(), currentLocation);
     }
 
     @Override
