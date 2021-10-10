@@ -54,8 +54,8 @@ public class WCommandListener extends SubcommandRulesBaseListener {
 
     public void setWaypoint(WaypointProvider provider) {
         String name = provider.getName();
-        if(name.equals(PlayerDeathEventListener.locationKey) || name.equals(lastLocationKey)){
-            player.sendMessage(ChatColor.RED+"This is a reserved name");
+        if (name.equals(PlayerDeathEventListener.locationKey) || name.equals(lastLocationKey)) {
+            player.sendMessage(ChatColor.RED + "This is a reserved name");
             state = State.INVALID_NAME;
             return;
         }
@@ -131,7 +131,7 @@ public class WCommandListener extends SubcommandRulesBaseListener {
         doTp(key);
     }
 
-    private void doTp(NamespacedKey key){
+    private void doTp(NamespacedKey key) {
         if (!dataContainer.has(key, WorldAndCoordinateDataType.getInstance())) {
             state = State.LOCATION_NOT_FOUND;
             player.sendMessage(ChatColor.RED + "No such waypoint named " + key.getKey());
@@ -178,14 +178,14 @@ public class WCommandListener extends SubcommandRulesBaseListener {
         Set<NamespacedKey> allKeys = dataContainer.getKeys();
         allKeys.stream()
 //                .filter(k->!k.getKey().equals(PlayerDeathEventListener.locationKey.toLowerCase(Locale.ROOT)))
-                .filter(k->dataContainer.has(k, WorldAndCoordinateDataType.getInstance()))
-                .forEach(k -> player.sendMessage(ChatColor.GREEN+k.getKey()+" -> "+ Objects.requireNonNull(dataContainer.get(k, WorldAndCoordinateDataType.getInstance()))));
+                .filter(k -> dataContainer.has(k, WorldAndCoordinateDataType.getInstance()))
+                .forEach(k -> player.sendMessage(ChatColor.GREEN + k.getKey() + " -> " + Objects.requireNonNull(dataContainer.get(k, WorldAndCoordinateDataType.getInstance()))));
     }
 
     @Override
     public void exitTpToLastDeath(SubcommandRulesParser.TpToLastDeathContext ctx) {
-        if(!dataContainer.has(lastDeathKey, WorldAndCoordinateDataType.getInstance())){
-            player.sendMessage(ChatColor.RED+"Your last death location hasnt been recorded!");
+        if (!dataContainer.has(lastDeathKey, WorldAndCoordinateDataType.getInstance())) {
+            player.sendMessage(ChatColor.RED + "Your last death location hasnt been recorded!");
             state = State.LOCATION_NOT_FOUND;
             return;
         }
@@ -195,8 +195,8 @@ public class WCommandListener extends SubcommandRulesBaseListener {
 
     @Override
     public void exitLast(SubcommandRulesParser.LastContext ctx) {
-        if(!dataContainer.has(lastKey, WorldAndCoordinateDataType.getInstance())){
-            player.sendMessage(ChatColor.RED+"Your last location hasnt been recorded!");
+        if (!dataContainer.has(lastKey, WorldAndCoordinateDataType.getInstance())) {
+            player.sendMessage(ChatColor.RED + "Your last location hasnt been recorded!");
             state = State.LOCATION_NOT_FOUND;
             return;
         }
